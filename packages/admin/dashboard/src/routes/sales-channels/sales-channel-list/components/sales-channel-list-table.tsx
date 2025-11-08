@@ -1,6 +1,7 @@
 import { PencilSquare, Trash } from "@medusajs/icons"
 import { HttpTypes } from "@medusajs/types"
 import {
+  Alert,
   Container,
   createDataTableColumnHelper,
   toast,
@@ -52,12 +53,26 @@ export const SalesChannelListTable = () => {
       }
     }) ?? []
 
-  if (isError) {
-    throw error
-  }
+  // Ne pas lancer l'erreur, afficher un message à la place
+  // if (isError) {
+  //   throw error
+  // }
 
   return (
     <Container className="p-0">
+      {isError && (
+        <div className="px-6 py-4">
+          <Alert variant="warning">
+            <div className="flex flex-col gap-2">
+              <p className="font-semibold">Backend Medusa non disponible</p>
+              <p className="text-sm">
+                Impossible de charger les canaux de vente. Le backend Medusa
+                n&apos;est pas configuré ou accessible.
+              </p>
+            </div>
+          </Alert>
+        </div>
+      )}
       <DataTable
         data={sales_channels_data}
         columns={columns}

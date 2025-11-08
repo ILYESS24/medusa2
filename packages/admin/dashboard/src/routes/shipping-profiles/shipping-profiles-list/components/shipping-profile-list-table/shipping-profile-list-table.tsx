@@ -1,4 +1,4 @@
-import { Button, Container, Heading, Text } from "@medusajs/ui"
+import { Alert, Button, Container, Heading, Text } from "@medusajs/ui"
 import { Link } from "react-router-dom"
 
 import { keepPreviousData } from "@tanstack/react-query"
@@ -36,9 +36,10 @@ export const ShippingProfileListTable = () => {
     pageSize: PAGE_SIZE,
   })
 
-  if (isError) {
-    throw error
-  }
+  // Ne pas lancer l'erreur, afficher un message à la place
+  // if (isError) {
+  //   throw error
+  // }
 
   return (
     <Container className="divide-y p-0">
@@ -55,6 +56,19 @@ export const ShippingProfileListTable = () => {
           </Button>
         </div>
       </div>
+      {isError && (
+        <div className="px-6 py-4">
+          <Alert variant="warning">
+            <div className="flex flex-col gap-2">
+              <p className="font-semibold">Backend Medusa non disponible</p>
+              <p className="text-sm">
+                Impossible de charger les profils d&apos;expédition. Le backend
+                Medusa n&apos;est pas configuré ou accessible.
+              </p>
+            </div>
+          </Alert>
+        </div>
+      )}
       <_DataTable
         table={table}
         pageSize={PAGE_SIZE}
