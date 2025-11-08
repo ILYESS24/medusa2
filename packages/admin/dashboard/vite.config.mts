@@ -34,5 +34,17 @@ export default defineConfig(({ mode }) => {
     server: {
       open: true,
     },
+    preview: {
+      host: "0.0.0.0",
+      port: Number(process.env.PORT) || 4173,
+      // Autoriser tous les hôtes en production (pour Render, etc.)
+      allowedHosts: [
+        "localhost",
+        ".onrender.com",
+        ".render.com",
+      ],
+      // Ou autoriser tous les hôtes (moins sécurisé mais fonctionne partout)
+      // strictPort: false,
+    },
   }
 })
