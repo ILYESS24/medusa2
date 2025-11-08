@@ -6,12 +6,14 @@ yarn install && yarn workspace @medusajs/types build && yarn workspace @medusajs
 
 ORDRE DE BUILD:
 1. yarn install - Installe toutes les dépendances
-2. @medusajs/icons - Construit les icônes (requis par @medusajs/ui)
-3. @medusajs/ui-preset - Construit le preset Tailwind (requis par tailwind.config.cjs)
-4. @medusajs/ui - Construit le package UI (requis par tailwind.config.cjs)
-5. @medusajs/admin-shared - Construit le package partagé admin
-6. @medusajs/admin-vite-plugin - Construit le plugin Vite (requis par vite.config.mts)
-7. @medusajs/dashboard build:preview - Construit le dashboard final
+2. @medusajs/types - Construit les types TypeScript (requis par js-sdk)
+3. @medusajs/icons - Construit les icônes (requis par @medusajs/ui)
+4. @medusajs/ui-preset - Construit le preset Tailwind (requis par tailwind.config.cjs)
+5. @medusajs/ui - Construit le package UI
+6. @medusajs/js-sdk - Construit le SDK JS (requis par le dashboard)
+7. @medusajs/admin-shared - Construit le package partagé admin
+8. @medusajs/admin-vite-plugin - Construit le plugin Vite (requis par vite.config.mts)
+9. @medusajs/dashboard build:preview - Construit le dashboard final
 
 INSTRUCTIONS:
 1. Allez sur https://dashboard.render.com
@@ -24,9 +26,11 @@ INSTRUCTIONS:
 
 VÉRIFICATION:
 Après le déploiement, vérifiez les logs. Vous devriez voir:
+- "tsc --build" pour types
 - "Building entry: src/index.ts" pour icons
 - "Building entry: src/index.ts" pour ui-preset  
 - "Building entry: src/index.ts" pour ui
+- "Building entry: src/index.ts" pour js-sdk
 - "Building entry: src/index.ts" pour admin-shared
 - "Building entry: src/index.ts" pour admin-vite-plugin
 - "vite v5.4.21 building for production..." pour dashboard
