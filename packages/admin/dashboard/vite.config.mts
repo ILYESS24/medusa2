@@ -37,14 +37,14 @@ export default defineConfig(({ mode }) => {
     preview: {
       host: "0.0.0.0",
       port: Number(process.env.PORT) || 4173,
-      // Autoriser tous les hôtes en production (pour Render, etc.)
-      // En production, on autorise tous les hôtes pour éviter les problèmes de CORS
-      allowedHosts: mode === "production" 
-        ? (host: string) => true  // Autoriser tous les hôtes en production
-        : [
-            "localhost",
-            "127.0.0.1",
-          ],
+      // En production, ne pas définir allowedHosts = autorise tous les hôtes par défaut
+      // En développement, restreindre à localhost pour la sécurité
+      ...(mode !== "production" && {
+        allowedHosts: [
+          "localhost",
+          "127.0.0.1",
+        ],
+      }),
     },
   }
 })
