@@ -38,13 +38,13 @@ export default defineConfig(({ mode }) => {
       host: "0.0.0.0",
       port: Number(process.env.PORT) || 4173,
       // Autoriser tous les hôtes en production (pour Render, etc.)
-      allowedHosts: [
-        "localhost",
-        ".onrender.com",
-        ".render.com",
-      ],
-      // Ou autoriser tous les hôtes (moins sécurisé mais fonctionne partout)
-      // strictPort: false,
+      // En production, on autorise tous les hôtes pour éviter les problèmes de CORS
+      allowedHosts: mode === "production" 
+        ? "all" 
+        : [
+            "localhost",
+            "127.0.0.1",
+          ],
     },
   }
 })
