@@ -1,0 +1,35 @@
+COMMANDE DE BUILD FINALE POUR RENDER - ADMIN DASHBOARD
+
+Copiez-collez cette commande EXACTEMENT dans Render Settings > Build Command:
+
+yarn install && cd packages/design-system/icons && yarn build && cd ../ui-preset && yarn build && cd ../ui && yarn build && cd ../../.. && yarn workspace @medusajs/admin-shared build && yarn workspace @medusajs/admin-vite-plugin build && yarn workspace @medusajs/dashboard build:preview
+
+ORDRE DE BUILD:
+1. yarn install - Installe toutes les dépendances
+2. @medusajs/icons - Construit les icônes (requis par @medusajs/ui)
+3. @medusajs/ui-preset - Construit le preset Tailwind (requis par tailwind.config.cjs)
+4. @medusajs/ui - Construit le package UI (requis par tailwind.config.cjs)
+5. @medusajs/admin-shared - Construit le package partagé admin
+6. @medusajs/admin-vite-plugin - Construit le plugin Vite (requis par vite.config.mts)
+7. @medusajs/dashboard build:preview - Construit le dashboard final
+
+INSTRUCTIONS:
+1. Allez sur https://dashboard.render.com
+2. Sélectionnez le service "medusa-admin"
+3. Cliquez sur "Settings"
+4. Trouvez "Build Command"
+5. Remplacez TOUTE la commande par celle ci-dessus
+6. Cliquez sur "Save Changes"
+7. Allez dans "Manual Deploy" > "Deploy latest commit"
+
+VÉRIFICATION:
+Après le déploiement, vérifiez les logs. Vous devriez voir:
+- "Building entry: src/index.ts" pour icons
+- "Building entry: src/index.ts" pour ui-preset  
+- "Building entry: src/index.ts" pour ui
+- "Building entry: src/index.ts" pour admin-shared
+- "Building entry: src/index.ts" pour admin-vite-plugin
+- "vite v5.4.21 building for production..." pour dashboard
+
+Si vous ne voyez pas ces logs, la commande n'a pas été mise à jour correctement.
+
