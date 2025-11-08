@@ -2,7 +2,7 @@ COMMANDE DE BUILD FINALE POUR RENDER - ADMIN DASHBOARD
 
 Copiez-collez cette commande EXACTEMENT dans Render Settings > Build Command:
 
-yarn install && yarn workspace @medusajs/icons build && yarn workspace @medusajs/ui-preset build && yarn workspace @medusajs/ui build && yarn workspace @medusajs/js-sdk build && yarn workspace @medusajs/admin-shared build && yarn workspace @medusajs/admin-vite-plugin build && yarn workspace @medusajs/dashboard build:preview
+yarn install && yarn workspace @medusajs/types build && yarn workspace @medusajs/icons build && yarn workspace @medusajs/ui-preset build && yarn workspace @medusajs/ui build && yarn workspace @medusajs/js-sdk build && yarn workspace @medusajs/admin-shared build && yarn workspace @medusajs/admin-vite-plugin build && yarn workspace @medusajs/dashboard build:preview
 
 ORDRE DE BUILD:
 1. yarn install - Installe toutes les dépendances
