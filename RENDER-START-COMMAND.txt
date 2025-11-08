@@ -1,0 +1,29 @@
+COMMANDE DE START POUR RENDER - ADMIN DASHBOARD
+
+Copiez-collez cette commande EXACTEMENT dans Render Settings > Start Command:
+
+cd packages/admin/dashboard && npx vite preview --host 0.0.0.0 --port $PORT
+
+INSTRUCTIONS:
+1. Allez sur https://dashboard.render.com
+2. Sélectionnez le service "medusa-admin"
+3. Cliquez sur "Settings"
+4. Trouvez "Start Command"
+5. Remplacez TOUTE la commande par celle ci-dessus
+6. Cliquez sur "Save Changes"
+7. Allez dans "Manual Deploy" > "Deploy latest commit"
+
+POURQUOI CETTE COMMANDE:
+- cd packages/admin/dashboard : Se place dans le dossier du dashboard
+- npx vite preview : Lance vite preview directement (plus fiable que yarn workspace)
+- --host 0.0.0.0 : Écoute sur toutes les interfaces réseau
+- --port $PORT : Utilise le port défini par Render
+
+VÉRIFICATION:
+Après le déploiement, vérifiez les logs. Vous devriez voir:
+- "Running 'cd packages/admin/dashboard && npx vite preview..."
+- "Local: http://localhost:10000/"
+- "Your service is live 🎉"
+
+Si vous voyez encore "yarn workspace", la commande n'a pas été mise à jour.
+
