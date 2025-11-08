@@ -37,9 +37,9 @@ export default defineConfig(({ mode }) => {
     preview: {
       host: "0.0.0.0",
       port: Number(process.env.PORT) || 4173,
-      // Ne pas définir allowedHosts = Vite autorise tous les hôtes par défaut
-      // C'est nécessaire pour Render qui utilise des domaines dynamiques
-      // allowedHosts n'est défini que pour le serveur de dev, pas pour preview
+      // Autoriser tous les hôtes pour Render (domaines dynamiques)
+      // Tableau vide = autorise tous les hôtes
+      allowedHosts: [],
     },
   }
 })
