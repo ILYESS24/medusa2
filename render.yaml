@@ -26,8 +26,9 @@ services:
     name: medusa-admin
     runtime: node
     plan: starter
+    rootDir: packages/admin/dashboard
     buildCommand: yarn install && yarn workspace @medusajs/deps build && yarn workspace @medusajs/types build && yarn workspace @medusajs/icons build && yarn workspace @medusajs/ui-preset build && yarn workspace @medusajs/ui build && yarn workspace @medusajs/js-sdk build && yarn workspace @medusajs/admin-shared build && yarn workspace @medusajs/admin-vite-plugin build && yarn workspace @medusajs/dashboard build:preview
-    startCommand: cd packages/admin/dashboard && yarn preview --host 0.0.0.0 --port $PORT
+    startCommand: yarn preview --host 0.0.0.0 --port $PORT
     envVars:
       - key: NODE_ENV
         value: production
