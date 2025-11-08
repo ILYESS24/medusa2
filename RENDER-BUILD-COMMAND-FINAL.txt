@@ -2,18 +2,19 @@ COMMANDE DE BUILD FINALE POUR RENDER - ADMIN DASHBOARD
 
 Copiez-collez cette commande EXACTEMENT dans Render Settings > Build Command:
 
-yarn install && yarn workspace @medusajs/types build && yarn workspace @medusajs/icons build && yarn workspace @medusajs/ui-preset build && yarn workspace @medusajs/ui build && yarn workspace @medusajs/js-sdk build && yarn workspace @medusajs/admin-shared build && yarn workspace @medusajs/admin-vite-plugin build && yarn workspace @medusajs/dashboard build:preview
+yarn install && yarn workspace @medusajs/deps build && yarn workspace @medusajs/types build && yarn workspace @medusajs/icons build && yarn workspace @medusajs/ui-preset build && yarn workspace @medusajs/ui build && yarn workspace @medusajs/js-sdk build && yarn workspace @medusajs/admin-shared build && yarn workspace @medusajs/admin-vite-plugin build && yarn workspace @medusajs/dashboard build:preview
 
 ORDRE DE BUILD:
 1. yarn install - Installe toutes les dépendances
-2. @medusajs/types - Construit les types TypeScript (requis par js-sdk)
-3. @medusajs/icons - Construit les icônes (requis par @medusajs/ui)
-4. @medusajs/ui-preset - Construit le preset Tailwind (requis par tailwind.config.cjs)
-5. @medusajs/ui - Construit le package UI
-6. @medusajs/js-sdk - Construit le SDK JS (requis par le dashboard)
-7. @medusajs/admin-shared - Construit le package partagé admin
-8. @medusajs/admin-vite-plugin - Construit le plugin Vite (requis par vite.config.mts)
-9. @medusajs/dashboard build:preview - Construit le dashboard final
+2. @medusajs/deps - Construit les dépendances (awilix, mikro-orm, etc.) - requis par types
+3. @medusajs/types - Construit les types TypeScript (requis par js-sdk)
+4. @medusajs/icons - Construit les icônes (requis par @medusajs/ui)
+5. @medusajs/ui-preset - Construit le preset Tailwind (requis par tailwind.config.cjs)
+6. @medusajs/ui - Construit le package UI
+7. @medusajs/js-sdk - Construit le SDK JS (requis par le dashboard)
+8. @medusajs/admin-shared - Construit le package partagé admin
+9. @medusajs/admin-vite-plugin - Construit le plugin Vite (requis par vite.config.mts)
+10. @medusajs/dashboard build:preview - Construit le dashboard final
 
 INSTRUCTIONS:
 1. Allez sur https://dashboard.render.com
@@ -26,6 +27,7 @@ INSTRUCTIONS:
 
 VÉRIFICATION:
 Après le déploiement, vérifiez les logs. Vous devriez voir:
+- "tsc --build" pour deps
 - "tsc --build" pour types
 - "Building entry: src/index.ts" pour icons
 - "Building entry: src/index.ts" pour ui-preset  
