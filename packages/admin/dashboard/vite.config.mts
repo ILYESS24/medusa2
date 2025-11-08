@@ -40,7 +40,7 @@ export default defineConfig(({ mode }) => {
       // Autoriser tous les hôtes en production (pour Render, etc.)
       // En production, on autorise tous les hôtes pour éviter les problèmes de CORS
       allowedHosts: mode === "production" 
-        ? "all" 
+        ? (host: string) => true  // Autoriser tous les hôtes en production
         : [
             "localhost",
             "127.0.0.1",
