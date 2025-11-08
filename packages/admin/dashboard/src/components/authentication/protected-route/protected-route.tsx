@@ -32,6 +32,27 @@ class ProtectedRouteErrorBoundary extends React.Component<
 
   render() {
     if (this.state.hasError) {
+      // Si c'est une erreur réseau/fetch, ne pas bloquer l'interface
+      // L'utilisateur peut toujours utiliser l'authentification personnalisée
+      const isNetworkError =
+        this.state.error?.message.includes("fetch") ||
+        this.state.error?.message.includes("network") ||
+        this.state.error?.message.includes("Failed to fetch")
+
+      if (isNetworkError) {
+        // Afficher un avertissement mais continuer à rendre l'interface
+        console.warn(
+          "Backend Medusa non disponible, mais l'interface continue de fonctionner"
+        )
+        // Réinitialiser l'erreur pour permettre le rendu
+        setTimeout(() => {
+          this.setState({ hasError: false, error: undefined })
+        }, 0)
+        // Rendre quand même l'interface
+        return this.props.children
+      }
+
+      // Pour les autres erreurs, afficher le message d'erreur
       return (
         <div className="flex min-h-screen items-center justify-center p-4">
           <div className="flex max-w-md flex-col gap-4">
@@ -41,12 +62,6 @@ class ProtectedRouteErrorBoundary extends React.Component<
                 <p className="text-sm">
                   Une erreur est survenue lors du chargement de
                   l&apos;interface.
-                  {this.state.error?.message.includes("fetch") && (
-                    <span className="mt-2 block">
-                      Le backend Medusa n&apos;est peut-être pas configuré ou
-                      accessible.
-                    </span>
-                  )}
                 </p>
                 <button
                   onClick={() => {
