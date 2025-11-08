@@ -34,13 +34,14 @@ export const ErrorBoundary = () => {
   }
 
   /**
-   * Log error in development mode.
+   * Log error in all modes for debugging.
    *
    * react-router-dom will sometimes swallow the error,
    * so this ensures that we always log it.
    */
-  if (process.env.NODE_ENV === "development") {
-    console.error("ErrorBoundary error:", error)
+  console.error("ErrorBoundary error:", error)
+  if (error instanceof Error) {
+    console.error("Error stack:", error.stack)
   }
 
   let title: string
@@ -51,23 +52,31 @@ export const ErrorBoundary = () => {
     message =
       "Impossible de se connecter au serveur. Le backend Medusa n'est peut-être pas configuré ou accessible."
   } else {
-    switch (code) {
-      case 400:
-        title = t("errorBoundary.badRequestTitle")
-        message = t("errorBoundary.badRequestMessage")
-        break
-      case 404:
-        title = t("errorBoundary.notFoundTitle")
-        message = t("errorBoundary.notFoundMessage")
-        break
-      case 500:
-        title = t("errorBoundary.internalServerErrorTitle")
-        message = t("errorBoundary.internalServerErrorMessage")
-        break
-      default:
-        title = t("errorBoundary.defaultTitle")
-        message = t("errorBoundary.defaultMessage")
-        break
+    // Utiliser des messages par défaut si les traductions échouent
+    try {
+      switch (code) {
+        case 400:
+          title = t("errorBoundary.badRequestTitle") || "Requête invalide"
+          message = t("errorBoundary.badRequestMessage") || "La requête est invalide."
+          break
+        case 404:
+          title = t("errorBoundary.notFoundTitle") || "Page non trouvée"
+          message = t("errorBoundary.notFoundMessage") || "La page demandée n'existe pas."
+          break
+        case 500:
+          title = t("errorBoundary.internalServerErrorTitle") || "Erreur serveur"
+          message = t("errorBoundary.internalServerErrorMessage") || "Une erreur est survenue sur le serveur."
+          break
+        default:
+          title = t("errorBoundary.defaultTitle") || "Une erreur est survenue"
+          message = t("errorBoundary.defaultMessage") || "Une erreur inattendue s'est produite."
+          break
+      }
+    } catch (translationError) {
+      // Fallback si les traductions ne fonctionnent pas
+      console.error("Translation error:", translationError)
+      title = "Une erreur est survenue"
+      message = error instanceof Error ? error.message : String(error)
     }
   }
 
