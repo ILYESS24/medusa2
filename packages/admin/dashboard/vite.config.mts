@@ -37,9 +37,13 @@ export default defineConfig(({ mode }) => {
     preview: {
       host: "0.0.0.0",
       port: Number(process.env.PORT) || 4173,
-      // Autoriser tous les hôtes pour Render (domaines dynamiques)
-      // Tableau vide = autorise tous les hôtes
-      allowedHosts: [],
+      // Autoriser tous les domaines Render (pattern avec point = tous les sous-domaines)
+      allowedHosts: [
+        ".onrender.com",
+        ".render.com",
+        "localhost",
+        "127.0.0.1",
+      ],
     },
   }
 })
