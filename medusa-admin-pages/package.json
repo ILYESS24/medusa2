@@ -1,0 +1,11 @@
+﻿{
+    "private":  true,
+    "name":  "medusa-admin-project",
+    "version":  "1.0.0",
+    "dependencies":  {
+                         "@medusajs/medusa":  "latest"
+                     },
+    "scripts":  {
+                    "build":  "medusa build --admin-only"
+                }
+}

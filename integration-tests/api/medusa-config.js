@@ -1,4 +1,4 @@
-const { Modules } = require("@medusajs/utils")
+﻿const { Modules } = require("@medusajs/utils")
 
 const DB_HOST = process.env.DB_HOST
 const DB_USERNAME = process.env.DB_USERNAME
@@ -23,8 +23,7 @@ const customFulfillmentProvider = {
 }
 
 module.exports = {
-  admin: {
-    disable: true,
+  admin: { disable: false,
   },
   plugins: [],
   projectConfig: {
@@ -114,3 +113,4 @@ module.exports = {
     },
   },
 }
+

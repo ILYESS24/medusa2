@@ -1,0 +1,43 @@
+# Page snapshot
+
+```yaml
+- generic [ref=e3]:
+  - generic [ref=e5]:
+    - img [ref=e8]
+    - generic [ref=e11]:
+      - heading "Créer un compte" [level=1] [ref=e12]
+      - paragraph [ref=e13]: Inscrivez-vous pour accéder à l'administration
+    - generic [ref=e15]:
+      - generic [ref=e16]:
+        - generic [ref=e17]:
+          - generic [ref=e19]: Nom
+          - textbox "Nom" [active] [ref=e21]:
+            - /placeholder: Votre nom
+            - text: Test User
+        - generic [ref=e22]:
+          - generic [ref=e24]: Email
+          - textbox "Email" [ref=e26]:
+            - /placeholder: votre@email.com
+        - generic [ref=e27]:
+          - generic [ref=e29]: Mot de passe
+          - generic [ref=e30]:
+            - textbox "Mot de passe" [ref=e31]:
+              - /placeholder: ••••••••
+            - button "Show password" [ref=e33] [cursor=pointer]:
+              - generic [ref=e34]: Show password
+              - img [ref=e35]
+        - generic [ref=e39]:
+          - generic [ref=e41]: Confirmer le mot de passe
+          - generic [ref=e42]:
+            - textbox "Confirmer le mot de passe" [ref=e43]:
+              - /placeholder: ••••••••
+            - button "Show password" [ref=e45] [cursor=pointer]:
+              - generic [ref=e46]: Show password
+              - img [ref=e47]
+      - button "Créer mon compte" [ref=e51] [cursor=pointer]
+    - generic [ref=e52]:
+      - text: Déjà un compte ?
+      - link "Se connecter" [ref=e53] [cursor=pointer]:
+        - /url: /login
+  - region "Notifications alt+T"
+```

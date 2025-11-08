@@ -1,0 +1,14 @@
+name = "medusa-auth"
+main = "src/auth-worker.js"
+compatibility_date = "2024-01-01"
+
+# Variables d'environnement
+[vars]
+ENVIRONMENT = "production"
+
+# KV Namespace pour stocker les utilisateurs
+[[kv_namespaces]]
+binding = "USERS_KV"
+id = "ef377a3b55c849269571cfc97ca6a34a"
+preview_id = "551122976399495ea07030b5f93c86dd"
+

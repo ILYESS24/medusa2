@@ -1,0 +1,29 @@
+name = "medusa-worker"
+main = "src/worker.js"
+compatibility_date = "2024-01-01"
+
+# Variables d'environnement
+[vars]
+ENVIRONMENT = "production"
+
+# Secrets (à définir via wrangler secret put)
+# DATABASE_URL
+# JWT_SECRET
+# COOKIE_SECRET
+
+# Routes (remplacez par votre domaine)
+# routes = [
+#   { pattern = "api.votre-domaine.com/*", zone_name = "votre-domaine.com" }
+# ]
+
+# KV Namespaces (optionnel pour le cache)
+# [[kv_namespaces]]
+# binding = "CACHE"
+# id = "votre-kv-namespace-id"
+
+# D1 Database (optionnel, mais limité pour Medusa)
+# [[d1_databases]]
+# binding = "DB"
+# database_name = "medusa-db"
+# database_id = "votre-database-id"
+

@@ -1,0 +1,11 @@
+name = "medusa-backend"
+main = "src/medusa-backend-worker.js"
+compatibility_date = "2024-01-01"
+
+[vars]
+ENVIRONMENT = "production"
+
+# Si vous avez une instance Medusa externe, configurez-la ici
+# [secrets]
+# MEDUSA_URL = "https://votre-backend-medusa.com"
+

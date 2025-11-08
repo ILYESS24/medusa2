@@ -1,5 +1,6 @@
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Alert, Button, Heading, Hint, Input, Text } from "@medusajs/ui"
+import React from "react"
 import { useForm } from "react-hook-form"
 import { Trans, useTranslation } from "react-i18next"
 import { Link, useLocation, useNavigate } from "react-router-dom"
@@ -7,8 +8,7 @@ import * as z from "zod"
 
 import { Form } from "../../components/common/form"
 import AvatarBox from "../../components/common/logo-box/avatar-box"
-import { useSignInWithEmailPass } from "../../hooks/api"
-import { isFetchError } from "../../lib/is-fetch-error"
+import { login } from "../../lib/auth-client"
 import { useExtension } from "../../providers/extension-provider"
 
 const LoginSchema = z.object({
@@ -22,7 +22,7 @@ export const Login = () => {
   const navigate = useNavigate()
   const { getWidgets } = useExtension()
 
-  const from = location.state?.from?.pathname || "/orders"
+  const from = location.state?.from?.pathname || "/"
 
   const form = useForm<z.infer<typeof LoginSchema>>({
     resolver: zodResolver(LoginSchema),
@@ -32,37 +32,23 @@ export const Login = () => {
     },
   })
 
-  const { mutateAsync, isPending } = useSignInWithEmailPass()
+  const [isPending, setIsPending] = React.useState(false)
 
   const handleSubmit = form.handleSubmit(async ({ email, password }) => {
-    await mutateAsync(
-      {
-        email,
-        password,
-      },
-      {
-        onError: (error) => {
-          if (isFetchError(error)) {
-            if (error.status === 401) {
-              form.setError("email", {
-                type: "manual",
-                message: error.message,
-              })
-
-              return
-            }
-          }
-
-          form.setError("root.serverError", {
-            type: "manual",
-            message: error.message,
-          })
-        },
-        onSuccess: () => {
-          navigate(from, { replace: true })
-        },
-      }
-    )
+    setIsPending(true)
+    try {
+      await login(email, password)
+      navigate(from, { replace: true })
+    } catch (error) {
+      const errorMessage =
+        error instanceof Error ? error.message : "Erreur lors de la connexion"
+      form.setError("root.serverError", {
+        type: "manual",
+        message: errorMessage,
+      })
+    } finally {
+      setIsPending(false)
+    }
   })
 
   const serverError = form.formState.errors?.root?.serverError?.message
@@ -154,18 +140,29 @@ export const Login = () => {
             return <Component key={i} />
           })}
         </div>
-        <span className="text-ui-fg-muted txt-small my-6">
-          <Trans
-            i18nKey="login.forgotPassword"
-            components={[
-              <Link
-                key="reset-password-link"
-                to="/reset-password"
-                className="text-ui-fg-interactive transition-fg hover:text-ui-fg-interactive-hover focus-visible:text-ui-fg-interactive-hover font-medium outline-none"
-              />,
-            ]}
-          />
-        </span>
+        <div className="text-ui-fg-muted txt-small my-6 flex flex-col items-center gap-2">
+          <span>
+            <Trans
+              i18nKey="login.forgotPassword"
+              components={[
+                <Link
+                  key="reset-password-link"
+                  to="/reset-password"
+                  className="text-ui-fg-interactive transition-fg hover:text-ui-fg-interactive-hover focus-visible:text-ui-fg-interactive-hover font-medium outline-none"
+                />,
+              ]}
+            />
+          </span>
+          <span>
+            Pas encore de compte ?{" "}
+            <Link
+              to="/register"
+              className="text-ui-fg-interactive transition-fg hover:text-ui-fg-interactive-hover focus-visible:text-ui-fg-interactive-hover font-medium outline-none"
+            >
+              Créer un compte
+            </Link>
+          </span>
+        </div>
       </div>
     </div>
   )

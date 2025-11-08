@@ -1,0 +1,48 @@
+services:
+  # Backend Medusa
+  - type: web
+    name: medusa-backend
+    runtime: node
+    plan: starter
+    buildCommand: yarn install && yarn build
+    startCommand: npx medusa start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: DATABASE_URL
+        fromDatabase:
+          name: medusa-db
+          property: connectionString
+      - key: JWT_SECRET
+        generateValue: true
+      - key: COOKIE_SECRET
+        generateValue: true
+      - key: MEDUSA_ADMIN_ONBOARDING_TYPE
+        value: default
+    healthCheckPath: /health
+
+  # Admin Dashboard (Frontend)
+  - type: web
+    name: medusa-admin
+    runtime: node
+    plan: starter
+    rootDir: packages/admin/dashboard
+    buildCommand: yarn install && yarn build:preview
+    startCommand: yarn preview --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: VITE_MEDUSA_ADMIN_BACKEND_URL
+        fromService:
+          name: medusa-backend
+          type: web
+          property: host
+      - key: VITE_AUTH_API_URL
+        value: https://medusa-auth.gfiyfougiug.workers.dev
+
+databases:
+  - name: medusa-db
+    plan: starter
+    databaseName: medusa_db
+    user: medusa_user
+
