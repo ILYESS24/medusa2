@@ -37,15 +37,9 @@ export default defineConfig(({ mode }) => {
     preview: {
       host: "0.0.0.0",
       port: Number(process.env.PORT) || 4173,
-      // En production (NODE_ENV=production), ne pas définir allowedHosts = autorise tous les hôtes
-      // En développement, restreindre à localhost pour la sécurité
-      // Vérifier NODE_ENV car vite preview peut ne pas avoir mode="production"
-      ...(process.env.NODE_ENV !== "production" && {
-        allowedHosts: [
-          "localhost",
-          "127.0.0.1",
-        ],
-      }),
+      // Ne pas définir allowedHosts = Vite autorise tous les hôtes par défaut
+      // C'est nécessaire pour Render qui utilise des domaines dynamiques
+      // allowedHosts n'est défini que pour le serveur de dev, pas pour preview
     },
   }
 })
