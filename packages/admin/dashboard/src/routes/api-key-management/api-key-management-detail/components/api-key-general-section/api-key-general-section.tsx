@@ -1,6 +1,6 @@
 import { PencilSquare, Trash, XCircle } from "@medusajs/icons"
 import { ApiKeyDTO } from "@medusajs/types"
-import { Badge, Container, Copy, Heading, StatusBadge, Text, toast, usePrompt, , Alert } from "@medusajs/ui"
+import { Badge, Container, Copy, Heading, StatusBadge, Text, toast, usePrompt, Alert } from "@medusajs/ui"
 import { useTranslation } from "react-i18next"
 import { useNavigate } from "react-router-dom"
 import {

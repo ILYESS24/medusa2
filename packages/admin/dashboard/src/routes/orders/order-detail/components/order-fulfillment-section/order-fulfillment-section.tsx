@@ -6,7 +6,7 @@ import {
   HttpTypes,
   OrderLineItemDTO,
 } from "@medusajs/types"
-import { Button, Container, Copy, Heading, StatusBadge, Text, Tooltip, toast, usePrompt, , Alert } from "@medusajs/ui"
+import { Button, Container, Copy, Heading, StatusBadge, Text, Tooltip, toast, usePrompt, Alert } from "@medusajs/ui"
 import { format } from "date-fns"
 import { useTranslation } from "react-i18next"
 import { Link, useNavigate } from "react-router-dom"

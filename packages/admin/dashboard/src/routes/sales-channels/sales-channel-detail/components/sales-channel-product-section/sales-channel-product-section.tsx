@@ -1,5 +1,5 @@
 import { PencilSquare, Trash } from "@medusajs/icons"
-import { Button, Checkbox, Container, Heading, toast, usePrompt, , Alert } from "@medusajs/ui"
+import { Button, Checkbox, Container, Heading, toast, usePrompt, Alert } from "@medusajs/ui"
 import { RowSelectionState, createColumnHelper } from "@tanstack/react-table"
 import { useMemo, useState } from "react"
 import { useTranslation } from "react-i18next"

@@ -1,5 +1,5 @@
 import { HttpTypes } from "@medusajs/types"
-import { Button, Checkbox, Container, Heading, toast, usePrompt, , Alert } from "@medusajs/ui"
+import { Button, Checkbox, Container, Heading, toast, usePrompt, Alert } from "@medusajs/ui"
 import { RowSelectionState, createColumnHelper } from "@tanstack/react-table"
 import { t } from "i18next"
 import { useMemo, useState } from "react"

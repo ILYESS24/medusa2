@@ -1,6 +1,6 @@
 import { Buildings, Component, PencilSquare, Trash } from "@medusajs/icons"
 import { HttpTypes } from "@medusajs/types"
-import { Badge, clx, Container, createDataTableColumnHelper, createDataTableCommandHelper, createDataTableFilterHelper, DataTableAction, Tooltip, usePrompt, , Alert } from "@medusajs/ui"
+import { Badge, clx, Container, createDataTableColumnHelper, createDataTableCommandHelper, createDataTableFilterHelper, DataTableAction, Tooltip, usePrompt, Alert } from "@medusajs/ui"
 import { keepPreviousData } from "@tanstack/react-query"
 import { useCallback, useMemo } from "react"
 import { useTranslation } from "react-i18next"
