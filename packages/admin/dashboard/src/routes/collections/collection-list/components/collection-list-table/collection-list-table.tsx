@@ -1,4 +1,4 @@
-import { Button, Container, Heading, Text } from "@medusajs/ui"
+import { Alert, Button, Container, Heading, Text } from "@medusajs/ui"
 import { useTranslation } from "react-i18next"
 import { Link } from "react-router-dom"
 
@@ -41,10 +41,6 @@ export const CollectionListTable = () => {
     pageSize: PAGE_SIZE,
   })
 
-  if (isError) {
-    throw error
-  }
-
   return (
     <Container className="divide-y p-0">
       <div className="flex items-center justify-between px-6 py-4">
@@ -60,6 +56,19 @@ export const CollectionListTable = () => {
           </Button>
         </Link>
       </div>
+      {isError && (
+        <div className="px-6 py-4">
+          <Alert variant="warning">
+            <div className="flex flex-col gap-2">
+              <p className="font-semibold">Backend Medusa non disponible</p>
+              <p className="text-sm">
+                Impossible de charger les collections. Le backend Medusa n&apos;est
+                pas configuré ou accessible.
+              </p>
+            </div>
+          </Alert>
+        </div>
+      )}
       <_DataTable
         table={table}
         columns={columns}

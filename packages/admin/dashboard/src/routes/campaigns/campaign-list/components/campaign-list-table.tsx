@@ -1,6 +1,6 @@
 import { PencilSquare, Trash } from "@medusajs/icons"
 import { AdminCampaign } from "@medusajs/types"
-import { Button, Container, Heading, toast, usePrompt } from "@medusajs/ui"
+import { Alert, Button, Container, Heading, toast, usePrompt } from "@medusajs/ui"
 import { keepPreviousData } from "@tanstack/react-query"
 import { createColumnHelper } from "@tanstack/react-table"
 import { useMemo } from "react"
@@ -43,10 +43,6 @@ export const CampaignListTable = () => {
     pageSize: PAGE_SIZE,
   })
 
-  if (isError) {
-    throw error
-  }
-
   return (
     <Container className="divide-y p-0">
       <div className="flex items-center justify-between px-6 py-4">
@@ -57,7 +53,19 @@ export const CampaignListTable = () => {
           </Button>
         </Link>
       </div>
-
+      {isError && (
+        <div className="px-6 py-4">
+          <Alert variant="warning">
+            <div className="flex flex-col gap-2">
+              <p className="font-semibold">Backend Medusa non disponible</p>
+              <p className="text-sm">
+                Impossible de charger les campagnes. Le backend Medusa n&apos;est
+                pas configuré ou accessible.
+              </p>
+            </div>
+          </Alert>
+        </div>
+      )}
       <_DataTable
         table={table}
         columns={columns}

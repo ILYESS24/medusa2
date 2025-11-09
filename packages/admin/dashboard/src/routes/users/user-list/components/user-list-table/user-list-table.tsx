@@ -1,5 +1,5 @@
 import { HttpTypes } from "@medusajs/types"
-import { Container, createDataTableColumnHelper } from "@medusajs/ui"
+import { Alert, Container, createDataTableColumnHelper } from "@medusajs/ui"
 import { keepPreviousData } from "@tanstack/react-query"
 import { useMemo } from "react"
 import { useTranslation } from "react-i18next"
@@ -33,12 +33,21 @@ export const UserListTable = () => {
 
   const { t } = useTranslation()
 
-  if (isError) {
-    throw error
-  }
-
   return (
     <Container className="divide-y p-0">
+      {isError && (
+        <div className="px-6 py-4">
+          <Alert variant="warning">
+            <div className="flex flex-col gap-2">
+              <p className="font-semibold">Backend Medusa non disponible</p>
+              <p className="text-sm">
+                Impossible de charger les utilisateurs. Le backend Medusa n&apos;est
+                pas configuré ou accessible.
+              </p>
+            </div>
+          </Alert>
+        </div>
+      )}
       <DataTable
         data={users}
         columns={columns}

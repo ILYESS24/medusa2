@@ -1,5 +1,5 @@
 import { InventoryTypes } from "@medusajs/types"
-import { Button, Container, Heading, Text } from "@medusajs/ui"
+import { Alert, Button, Container, Heading, Text } from "@medusajs/ui"
 
 import { RowSelectionState } from "@tanstack/react-table"
 import { useState } from "react"
@@ -52,10 +52,6 @@ export const InventoryListTable = () => {
     },
   })
 
-  if (isError) {
-    throw error
-  }
-
   return (
     <Container className="divide-y p-0">
       <div className="flex items-center justify-between px-6 py-4">
@@ -69,6 +65,19 @@ export const InventoryListTable = () => {
           <Link to="create">{t("actions.create")}</Link>
         </Button>
       </div>
+      {isError && (
+        <div className="px-6 py-4">
+          <Alert variant="warning">
+            <div className="flex flex-col gap-2">
+              <p className="font-semibold">Backend Medusa non disponible</p>
+              <p className="text-sm">
+                Impossible de charger l&apos;inventaire. Le backend Medusa n&apos;est
+                pas configuré ou accessible.
+              </p>
+            </div>
+          </Alert>
+        </div>
+      )}
       <_DataTable
         table={table}
         columns={columns}

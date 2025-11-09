@@ -1,6 +1,6 @@
 import { PencilSquare, Trash } from "@medusajs/icons"
 import { PromotionDTO } from "@medusajs/types"
-import { Button, Container, Heading, usePrompt } from "@medusajs/ui"
+import { Alert, Button, Container, Heading, usePrompt } from "@medusajs/ui"
 import { createColumnHelper } from "@tanstack/react-table"
 import { useMemo } from "react"
 import { useTranslation } from "react-i18next"
@@ -48,10 +48,6 @@ export const PromotionListTable = () => {
     getRowId: (row) => row.id,
   })
 
-  if (isError) {
-    throw error
-  }
-
   return (
     <Container className="divide-y p-0">
       <div className="flex items-center justify-between px-6 py-4">
@@ -61,7 +57,20 @@ export const PromotionListTable = () => {
           <Link to="create">{t("actions.create")}</Link>
         </Button>
       </div>
-
+      {isError && (
+        <div className="px-6 py-4">
+          <Alert variant="warning">
+            <div className="flex flex-col gap-2">
+              <p className="font-semibold">Backend Medusa non disponible</p>
+              <p className="text-sm">
+                Impossible de charger les promotions. Le backend Medusa n&apos;est
+                pas configuré ou accessible. Les données affichées peuvent être
+                incomplètes.
+              </p>
+            </div>
+          </Alert>
+        </div>
+      )}
       <_DataTable
         table={table}
         columns={columns}
