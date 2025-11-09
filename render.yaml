@@ -32,10 +32,7 @@ services:
       - key: NODE_ENV
         value: production
       - key: VITE_MEDUSA_ADMIN_BACKEND_URL
-        fromService:
-          name: medusa-backend
-          type: web
-          property: host
+        value: https://medusa-backend.gfiyfougiug.workers.dev
       - key: VITE_AUTH_API_URL
         value: https://medusa-auth.gfiyfougiug.workers.dev
 

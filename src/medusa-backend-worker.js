@@ -148,6 +148,29 @@ export default {
       })
     }
 
+    // Endpoint admin/shipping-profiles
+    if (path.startsWith("/admin/shipping-profiles") && method === "GET") {
+      return jsonResponse({
+        shipping_profiles: [],
+        count: 0,
+        offset: 0,
+        limit: 20,
+      })
+    }
+
+    // Endpoint admin/store
+    if (path === "/admin/store" && method === "GET") {
+      return jsonResponse({
+        store: {
+          id: "store_1",
+          name: "Default Store",
+          default_sales_channel_id: null,
+          default_region_id: null,
+          default_currency_code: "USD",
+        },
+      })
+    }
+
     // Endpoint store/products (pour le storefront)
     if (path.startsWith("/store/products") && method === "GET") {
       return jsonResponse({
@@ -214,18 +237,29 @@ export default {
 
     // Pour tous les autres endpoints admin, retourner une structure vide
     if (path.startsWith("/admin/")) {
+      // Extraire le nom de la ressource (ex: /admin/shipping-profiles -> shipping-profiles)
+      const parts = path.split("/").filter(p => p && p !== "admin")
+      const resourceName = parts[0] || "items"
+      
       // Si c'est une requête GET pour une liste, retourner un tableau vide
-      if (method === "GET" && !path.includes("/")) {
-        const resourceName = path.split("/").pop()
+      if (method === "GET") {
+        // Si c'est un ID spécifique (ex: /admin/shipping-profiles/123)
+        if (parts.length > 1) {
+          // Retourner un objet vide pour un item spécifique
+          return jsonResponse({}, 200)
+        }
+        
+        // Sinon, retourner une liste vide
+        const responseKey = resourceName.replace(/-/g, "_") // shipping-profiles -> shipping_profiles
         return jsonResponse({
-          [resourceName]: [],
+          [responseKey]: [],
           count: 0,
           offset: 0,
           limit: 20,
-        })
+        }, 200)
       }
       
-      // Sinon, retourner un objet vide ou 404 selon le contexte
+      // Pour POST, PUT, DELETE, retourner un objet vide
       return jsonResponse({}, 200)
     }
 
