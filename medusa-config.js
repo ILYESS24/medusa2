@@ -3,18 +3,6 @@ const { Modules } = require("@medusajs/utils")
 // Configuration de la base de données depuis les variables d'environnement
 const DATABASE_URL = process.env.DATABASE_URL || "postgres://localhost/medusa"
 
-// Provider de paiement système
-const systemPaymentProvider = {
-  resolve: "@medusajs/payment/dist/providers/system",
-  id: "system",
-}
-
-// Provider de fulfillment manuel
-const manualFulfillmentProvider = {
-  resolve: "@medusajs/fulfillment-manual",
-  id: "manual",
-}
-
 module.exports = {
   admin: {
     disable: false, // Admin activé
@@ -176,11 +164,14 @@ module.exports = {
     // ============================================
     // MODULES DE PAIEMENT
     // ============================================
-    
+    // Le provider système est enregistré automatiquement par défaut
+    // Pas besoin de le configurer manuellement
     [Modules.PAYMENT]: {
       resolve: "@medusajs/payment",
       options: {
-        providers: [systemPaymentProvider],
+        // Le provider système est automatiquement enregistré
+        // Vous pouvez ajouter d'autres providers ici si nécessaire
+        providers: [],
       },
     },
     
@@ -191,7 +182,12 @@ module.exports = {
     [Modules.FULFILLMENT]: {
       resolve: "@medusajs/fulfillment",
       options: {
-        providers: [manualFulfillmentProvider],
+        providers: [
+          {
+            resolve: "@medusajs/fulfillment-manual",
+            id: "manual",
+          },
+        ],
       },
     },
     

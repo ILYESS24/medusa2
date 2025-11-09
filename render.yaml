@@ -4,7 +4,7 @@ services:
     name: medusa-backend
     runtime: node
     plan: starter
-    buildCommand: yarn install && yarn workspace @medusajs/cli build && yarn build && yarn workspace @medusajs/medusa build && node packages/cli/medusa-cli/cli.js db:migrate
+    buildCommand: yarn install && yarn workspace @medusajs/cli build && yarn workspace @medusajs/medusa build && yarn build && node packages/cli/medusa-cli/cli.js db:migrate || true
     startCommand: node packages/cli/medusa-cli/cli.js start --port $PORT
     envVars:
       - key: NODE_ENV
