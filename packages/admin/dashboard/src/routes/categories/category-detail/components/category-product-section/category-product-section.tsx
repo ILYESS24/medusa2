@@ -1,6 +1,6 @@
 import { PlusMini } from "@medusajs/icons"
 import { HttpTypes } from "@medusajs/types"
-import { Checkbox, CommandBar, Container, Heading, toast, usePrompt, , Alert } from "@medusajs/ui"
+import { Alert, Checkbox, CommandBar, Container, Heading, toast, usePrompt } from "@medusajs/ui"
 import { keepPreviousData } from "@tanstack/react-query"
 import { RowSelectionState, createColumnHelper } from "@tanstack/react-table"
 import { useMemo, useState } from "react"
