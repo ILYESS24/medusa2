@@ -1,10 +1,10 @@
 services:
-  # Backend Medusa
+  # Backend Medusa (Production)
   - type: web
     name: medusa-backend
     runtime: node
     plan: starter
-    buildCommand: yarn install && yarn build
+    buildCommand: yarn install && yarn build && npx medusa db:migrate
     startCommand: npx medusa start
     envVars:
       - key: NODE_ENV
@@ -19,6 +19,20 @@ services:
         generateValue: true
       - key: MEDUSA_ADMIN_ONBOARDING_TYPE
         value: default
+      - key: PORT
+        value: "9000"
+      - key: ADMIN_CORS
+        fromService:
+          name: medusa-admin
+          type: web
+          property: host
+      - key: STORE_CORS
+        value: "*"
+      - key: AUTH_CORS
+        fromService:
+          name: medusa-admin
+          type: web
+          property: host
     healthCheckPath: /health
 
   # Admin Dashboard (Frontend)
@@ -32,7 +46,10 @@ services:
       - key: NODE_ENV
         value: production
       - key: VITE_MEDUSA_ADMIN_BACKEND_URL
-        value: https://medusa-backend.gfiyfougiug.workers.dev
+        fromService:
+          name: medusa-backend
+          type: web
+          property: host
       - key: VITE_AUTH_API_URL
         value: https://medusa-auth.gfiyfougiug.workers.dev
 
