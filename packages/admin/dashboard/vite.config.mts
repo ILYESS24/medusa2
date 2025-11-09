@@ -38,13 +38,24 @@ export default defineConfig(({ mode }) => {
     preview: {
       host: "0.0.0.0",
       port: Number(process.env.PORT) || 4173,
-      // Autoriser tous les domaines Render (pattern avec point = tous les sous-domaines)
+      // Autoriser tous les domaines Render et Cloudflare Pages
       allowedHosts: [
         ".onrender.com",
         ".render.com",
+        ".pages.dev",
+        ".cloudflare.com",
         "localhost",
         "127.0.0.1",
       ],
+    },
+    build: {
+      outDir: "dist",
+      // Configuration pour Cloudflare Pages
+      rollupOptions: {
+        output: {
+          manualChunks: undefined,
+        },
+      },
     },
   }
 })
