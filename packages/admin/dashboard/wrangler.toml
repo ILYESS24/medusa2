@@ -1,0 +1,14 @@
+# Configuration Wrangler pour Cloudflare Pages
+# Déploiement du frontend Medusa Admin
+
+name = "medusa-admin"
+compatibility_date = "2024-01-01"
+
+# Configuration pour Pages
+pages_build_output_dir = "dist"
+
+[env.production]
+VITE_MEDUSA_ADMIN_BACKEND_URL = "https://medusa-backend.onrender.com"  # À remplacer par l'URL réelle après déploiement backend
+VITE_AUTH_API_URL = "https://medusa-auth.gfiyfougiug.workers.dev"
+NODE_ENV = "production"
+
