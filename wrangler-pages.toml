@@ -1,0 +1,12 @@
+# Configuration Cloudflare Pages pour le Frontend Medusa Admin
+
+[build]
+command = "yarn install && yarn workspace @medusajs/deps build && yarn workspace @medusajs/types build && yarn workspace @medusajs/icons build && yarn workspace @medusajs/ui-preset build && yarn workspace @medusajs/ui build && yarn workspace @medusajs/js-sdk build && yarn workspace @medusajs/admin-shared build && yarn workspace @medusajs/admin-vite-plugin build && yarn workspace @medusajs/dashboard build:preview"
+cwd = "packages/admin/dashboard"
+output = "dist"
+
+[env.production]
+VITE_MEDUSA_ADMIN_BACKEND_URL = "https://medusa-backend.onrender.com"  # À remplacer par l'URL réelle après déploiement
+VITE_AUTH_API_URL = "https://medusa-auth.gfiyfougiug.workers.dev"
+NODE_ENV = "production"
+

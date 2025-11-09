@@ -1,0 +1,42 @@
+# Configuration Render pour le Backend SEULEMENT
+# Le frontend sera déployé sur Cloudflare Pages
+
+services:
+  # Backend Medusa (Production)
+  - type: web
+    name: medusa-backend
+    runtime: node
+    plan: starter
+    buildCommand: yarn install && yarn workspace @medusajs/cli build && yarn workspace @medusajs/medusa build && yarn build && node packages/cli/medusa-cli/cli.js db:migrate || true
+    startCommand: node packages/cli/medusa-cli/cli.js start --port $PORT
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: DATABASE_URL
+        fromDatabase:
+          name: medusa-db
+          property: connectionString
+      - key: JWT_SECRET
+        generateValue: true
+      - key: COOKIE_SECRET
+        generateValue: true
+      - key: MEDUSA_ADMIN_ONBOARDING_TYPE
+        value: default
+      - key: PORT
+        value: "9000"
+      # CORS configuré pour Cloudflare Pages
+      # Remplacez par votre URL Cloudflare Pages après déploiement
+      - key: ADMIN_CORS
+        value: "*"  # Ou votre URL Cloudflare Pages: https://medusa-admin.pages.dev
+      - key: STORE_CORS
+        value: "*"
+      - key: AUTH_CORS
+        value: "*"  # Ou votre URL Cloudflare Pages: https://medusa-admin.pages.dev
+    healthCheckPath: /health
+
+databases:
+  - name: medusa-db
+    plan: starter
+    databaseName: medusa_db
+    user: medusa_user
+
