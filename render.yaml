@@ -1,5 +1,6 @@
 services:
   # Backend Medusa (Production)
+  # Ce service servira le backend sur l'URL existante
   - type: web
     name: medusa-backend
     runtime: node
