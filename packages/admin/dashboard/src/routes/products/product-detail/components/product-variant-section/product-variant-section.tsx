@@ -1,16 +1,6 @@
 import { Buildings, Component, PencilSquare, Trash } from "@medusajs/icons"
 import { HttpTypes } from "@medusajs/types"
-import {
-  Badge,
-  clx,
-  Container,
-  createDataTableColumnHelper,
-  createDataTableCommandHelper,
-  createDataTableFilterHelper,
-  DataTableAction,
-  Tooltip,
-  usePrompt,
-} from "@medusajs/ui"
+import { Badge, clx, Container, createDataTableColumnHelper, createDataTableCommandHelper, createDataTableFilterHelper, DataTableAction, Tooltip, usePrompt, , Alert } from "@medusajs/ui"
 import { keepPreviousData } from "@tanstack/react-query"
 import { useCallback, useMemo } from "react"
 import { useTranslation } from "react-i18next"
@@ -70,9 +60,10 @@ export const ProductVariantSection = ({
     }
   )
 
-  if (isError) {
-    throw error
-  }
+  // Ne pas lancer l'erreur, afficher un message à la place
+  // if (isError) {
+  //   throw error
+  // }
 
   return (
     <Container className="divide-y p-0">
@@ -196,6 +187,46 @@ const useColumns = (product: HttpTypes.AdminProduct) => {
                 </Badge>
               </Tooltip>
             </div>
+
+
+        {isError && (
+
+
+          <div className="px-6 py-4">
+
+
+            <Alert variant="warning">
+
+
+              <div className="flex flex-col gap-2">
+
+
+                <p className="font-semibold">Backend Medusa non disponible</p>
+
+
+                <p className="text-sm">
+
+
+                  Impossible de charger les données. Le backend Medusa n&apos;est
+
+
+                  pas configuré ou accessible.
+
+
+                </p>
+
+
+              </div>
+
+
+            </Alert>
+
+
+          </div>
+
+
+        )}
+
           )
         },
       })

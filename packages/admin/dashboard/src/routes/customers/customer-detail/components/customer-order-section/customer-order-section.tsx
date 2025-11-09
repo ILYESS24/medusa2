@@ -1,6 +1,6 @@
 import { ArrowPath } from "@medusajs/icons"
 import { HttpTypes } from "@medusajs/types"
-import { Container, Heading } from "@medusajs/ui"
+import { Container, Heading, Alert } from "@medusajs/ui"
 import { keepPreviousData } from "@tanstack/react-query"
 import { createColumnHelper } from "@tanstack/react-table"
 import { useMemo } from "react"
@@ -55,9 +55,10 @@ export const CustomerOrderSection = ({
     prefix: PREFIX,
   })
 
-  if (isError) {
-    throw error
-  }
+  // Ne pas lancer l'erreur, afficher un message à la place
+  // if (isError) {
+  //   throw error
+  // }
 
   return (
     <Container className="divide-y p-0">
@@ -68,7 +69,47 @@ export const CustomerOrderSection = ({
         {/*  <Button size="small" variant="secondary">*/}
         {/*    {t("actions.create")}*/}
         {/*  </Button>*/}
-        {/*</div>*/}
+        {/*</div>
+
+
+        {isError && (
+
+
+          <div className="px-6 py-4">
+
+
+            <Alert variant="warning">
+
+
+              <div className="flex flex-col gap-2">
+
+
+                <p className="font-semibold">Backend Medusa non disponible</p>
+
+
+                <p className="text-sm">
+
+
+                  Impossible de charger les données. Le backend Medusa n&apos;est
+
+
+                  pas configuré ou accessible.
+
+
+                </p>
+
+
+              </div>
+
+
+            </Alert>
+
+
+          </div>
+
+
+        )}
+*/}
       </div>
       <_DataTable
         columns={columns}

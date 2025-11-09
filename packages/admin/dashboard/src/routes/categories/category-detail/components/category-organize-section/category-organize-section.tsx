@@ -4,7 +4,7 @@ import {
   TriangleRightMini,
 } from "@medusajs/icons"
 import { HttpTypes } from "@medusajs/types"
-import { Badge, Container, Heading, Text, Tooltip } from "@medusajs/ui"
+import { Badge, Container, Heading, Text, Tooltip, Alert } from "@medusajs/ui"
 import { useMemo, useState } from "react"
 import { useTranslation } from "react-i18next"
 import { Link } from "react-router-dom"
@@ -41,6 +41,46 @@ export const CategoryOrganizeSection = ({
           ]}
         />
       </div>
+
+
+        {isError && (
+
+
+          <div className="px-6 py-4">
+
+
+            <Alert variant="warning">
+
+
+              <div className="flex flex-col gap-2">
+
+
+                <p className="font-semibold">Backend Medusa non disponible</p>
+
+
+                <p className="text-sm">
+
+
+                  Impossible de charger les données. Le backend Medusa n&apos;est
+
+
+                  pas configuré ou accessible.
+
+
+                </p>
+
+
+              </div>
+
+
+            </Alert>
+
+
+          </div>
+
+
+        )}
+
       <div className="text-ui-fg-subtle grid grid-cols-2 items-start gap-3 px-6 py-4">
         <Text size="small" leading="compact" weight="plus">
           {t("categories.fields.path.label")}
@@ -82,9 +122,10 @@ const PathDisplay = ({
     return <Skeleton className="h-5 w-16" />
   }
 
-  if (isError) {
-    throw error
-  }
+  // Ne pas lancer l'erreur, afficher un message à la place
+  // if (isError) {
+  //   throw error
+  // }
 
   if (!chips.length) {
     return (
@@ -190,9 +231,10 @@ const ChildrenDisplay = ({
     return <Skeleton className="h-5 w-16" />
   }
 
-  if (isError) {
-    throw error
-  }
+  // Ne pas lancer l'erreur, afficher un message à la place
+  // if (isError) {
+  //   throw error
+  // }
 
   if (!chips.length) {
     return (

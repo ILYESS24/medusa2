@@ -6,17 +6,7 @@ import {
   HttpTypes,
   OrderLineItemDTO,
 } from "@medusajs/types"
-import {
-  Button,
-  Container,
-  Copy,
-  Heading,
-  StatusBadge,
-  Text,
-  Tooltip,
-  toast,
-  usePrompt,
-} from "@medusajs/ui"
+import { Button, Container, Copy, Heading, StatusBadge, Text, Tooltip, toast, usePrompt, , Alert } from "@medusajs/ui"
 import { format } from "date-fns"
 import { useTranslation } from "react-i18next"
 import { Link, useNavigate } from "react-router-dom"
@@ -185,6 +175,46 @@ const UnfulfilledItemDisplay = ({
             ]}
           />
         </div>
+
+
+        {isError && (
+
+
+          <div className="px-6 py-4">
+
+
+            <Alert variant="warning">
+
+
+              <div className="flex flex-col gap-2">
+
+
+                <p className="font-semibold">Backend Medusa non disponible</p>
+
+
+                <p className="text-sm">
+
+
+                  Impossible de charger les données. Le backend Medusa n&apos;est
+
+
+                  pas configuré ou accessible.
+
+
+                </p>
+
+
+              </div>
+
+
+            </Alert>
+
+
+          </div>
+
+
+        )}
+
       </div>
       <div>
         {unfulfilledItems.map((item: AdminOrderLineItem) => (
@@ -316,9 +346,10 @@ const Fulfillment = ({
     }
   }
 
-  if (isError) {
-    throw error
-  }
+  // Ne pas lancer l'erreur, afficher un message à la place
+  // if (isError) {
+  //   throw error
+  // }
 
   const isValidUrl = (url?: string) => url && url.length > 0 && url !== "#"
 

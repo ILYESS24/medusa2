@@ -1,15 +1,6 @@
 import { PencilSquare, Trash, XCircle } from "@medusajs/icons"
 import { ApiKeyDTO } from "@medusajs/types"
-import {
-  Badge,
-  Container,
-  Copy,
-  Heading,
-  StatusBadge,
-  Text,
-  toast,
-  usePrompt,
-} from "@medusajs/ui"
+import { Badge, Container, Copy, Heading, StatusBadge, Text, toast, usePrompt, , Alert } from "@medusajs/ui"
 import { useTranslation } from "react-i18next"
 import { useNavigate } from "react-router-dom"
 import {
@@ -131,6 +122,46 @@ export const ApiKeyGeneralSection = ({ apiKey }: ApiKeyGeneralSectionProps) => {
               {apiKeyStatus.label}
             </StatusBadge>
           </div>
+
+
+        {isError && (
+
+
+          <div className="px-6 py-4">
+
+
+            <Alert variant="warning">
+
+
+              <div className="flex flex-col gap-2">
+
+
+                <p className="font-semibold">Backend Medusa non disponible</p>
+
+
+                <p className="text-sm">
+
+
+                  Impossible de charger les données. Le backend Medusa n&apos;est
+
+
+                  pas configuré ou accessible.
+
+
+                </p>
+
+
+              </div>
+
+
+            </Alert>
+
+
+          </div>
+
+
+        )}
+
           <ActionMenu
             groups={[
               {
@@ -224,9 +255,10 @@ const ActionBy = ({ userId }: { userId: string | null }) => {
     )
   }
 
-  if (isError) {
-    throw error
-  }
+  // Ne pas lancer l'erreur, afficher un message à la place
+  // if (isError) {
+  //   throw error
+  // }
 
   if (isLoading) {
     return (
