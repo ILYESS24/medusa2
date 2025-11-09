@@ -3,6 +3,18 @@ const { Modules } = require("@medusajs/utils")
 // Configuration de la base de données depuis les variables d'environnement
 const DATABASE_URL = process.env.DATABASE_URL || "postgres://localhost/medusa"
 
+// Provider de paiement système
+const systemPaymentProvider = {
+  resolve: "@medusajs/payment/dist/providers/system",
+  id: "system",
+}
+
+// Provider de fulfillment manuel
+const manualFulfillmentProvider = {
+  resolve: "@medusajs/fulfillment-manual",
+  id: "manual",
+}
+
 module.exports = {
   admin: {
     disable: false, // Admin activé
@@ -21,9 +33,14 @@ module.exports = {
   },
   featureFlags: {
     medusa_v2: true, // Utiliser Medusa v2
+    index_engine: true, // Activer le moteur d'indexation
   },
   modules: {
-    // Modules de base
+    // ============================================
+    // MODULES D'INFRASTRUCTURE
+    // ============================================
+    
+    // Authentification
     [Modules.AUTH]: {
       resolve: "@medusajs/auth",
       options: {
@@ -35,6 +52,8 @@ module.exports = {
         ],
       },
     },
+    
+    // Utilisateurs
     [Modules.USER]: {
       scope: "internal",
       resolve: "@medusajs/user",
@@ -42,68 +61,144 @@ module.exports = {
         jwt_secret: process.env.JWT_SECRET || "change-me",
       },
     },
+    
+    // Cache
     [Modules.CACHE]: {
       resolve: "@medusajs/cache-inmemory",
       options: { ttl: 0 },
     },
+    
+    // Caching (module de cache avancé)
+    [Modules.CACHING]: {
+      resolve: "@medusajs/caching",
+      options: {},
+    },
+    
+    // Verrouillage (locking)
     [Modules.LOCKING]: {
       resolve: "@medusajs/locking-postgres",
     },
+    
+    // Moteur de workflow
     [Modules.WORKFLOW_ENGINE]: {
       resolve: "@medusajs/workflow-engine-inmemory",
     },
     
-    // Modules e-commerce
+    // Event Bus (bus d'événements)
+    [Modules.EVENT_BUS]: {
+      resolve: "@medusajs/event-bus-local",
+    },
+    
+    // Analytics (analyses)
+    [Modules.ANALYTICS]: {
+      resolve: "@medusajs/analytics",
+      options: {
+        providers: [
+          {
+            resolve: "@medusajs/analytics-local",
+            id: "local",
+          },
+        ],
+      },
+    },
+    
+    // Index (moteur d'indexation)
+    [Modules.INDEX]: {
+      resolve: "@medusajs/index",
+    },
+    
+    // Settings (paramètres utilisateur)
+    [Modules.SETTINGS]: {
+      resolve: "@medusajs/settings",
+    },
+    
+    // Link Modules (liaison entre modules)
+    [Modules.LINK]: {
+      resolve: "@medusajs/link-modules",
+    },
+    
+    // ============================================
+    // MODULES E-COMMERCE
+    // ============================================
+    
+    // Produits
     [Modules.PRODUCT]: true,
+    
+    // Tarification
     [Modules.PRICING]: true,
+    
+    // Promotions
     [Modules.PROMOTION]: true,
+    
+    // Régions
     [Modules.REGION]: true,
+    
+    // Clients
     [Modules.CUSTOMER]: true,
+    
+    // Canaux de vente
     [Modules.SALES_CHANNEL]: true,
+    
+    // Panier
     [Modules.CART]: true,
+    
+    // Commandes
     [Modules.ORDER]: true,
+    
+    // Boutique
     [Modules.STORE]: true,
+    
+    // Taxes
     [Modules.TAX]: true,
+    
+    // Devises
     [Modules.CURRENCY]: true,
+    
+    // Clés API
     [Modules.API_KEY]: true,
     
-    // Modules d'inventaire
+    // ============================================
+    // MODULES D'INVENTAIRE
+    // ============================================
+    
+    // Emplacements de stock
     [Modules.STOCK_LOCATION]: {
       resolve: "@medusajs/stock-location",
       options: {},
     },
+    
+    // Inventaire
     [Modules.INVENTORY]: {
       resolve: "@medusajs/inventory",
       options: {},
     },
     
-    // Modules de paiement
+    // ============================================
+    // MODULES DE PAIEMENT
+    // ============================================
+    
     [Modules.PAYMENT]: {
       resolve: "@medusajs/payment",
       options: {
-        providers: [
-          {
-            resolve: "@medusajs/payment/dist/providers/system",
-            id: "system",
-          },
-        ],
+        providers: [systemPaymentProvider],
       },
     },
     
-    // Modules de fulfillment
+    // ============================================
+    // MODULES DE FULFILLMENT
+    // ============================================
+    
     [Modules.FULFILLMENT]: {
       resolve: "@medusajs/fulfillment",
       options: {
-        providers: [
-          {
-            resolve: "@medusajs/fulfillment-manual",
-            id: "manual",
-          },
-        ],
+        providers: [manualFulfillmentProvider],
       },
     },
     
-    // Modules de fichiers
+    // ============================================
+    // MODULES DE FICHIERS
+    // ============================================
+    
     [Modules.FILE]: {
       resolve: "@medusajs/file",
       options: {
@@ -119,7 +214,10 @@ module.exports = {
       },
     },
     
-    // Modules de notification
+    // ============================================
+    // MODULES DE NOTIFICATION
+    // ============================================
+    
     [Modules.NOTIFICATION]: {
       resolve: "@medusajs/notification",
       options: {
@@ -137,4 +235,3 @@ module.exports = {
     },
   },
 }
-
