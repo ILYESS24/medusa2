@@ -46,10 +46,11 @@ services:
       - key: NODE_ENV
         value: production
       - key: VITE_MEDUSA_ADMIN_BACKEND_URL
-        fromService:
-          name: medusa-backend
-          type: web
-          property: host
+        # NOTE: fromService avec property: host donne seulement le hostname
+        # Il faut utiliser l'URL complète avec https://
+        # Remplacez 'medusa-backend-xxxx' par votre URL réelle après déploiement
+        # OU configurez-la manuellement dans Render Dashboard > Environment
+        value: https://medusa-backend.onrender.com
       - key: VITE_AUTH_API_URL
         value: https://medusa-auth.gfiyfougiug.workers.dev
 
