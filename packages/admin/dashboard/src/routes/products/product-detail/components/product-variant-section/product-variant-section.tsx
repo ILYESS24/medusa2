@@ -67,6 +67,19 @@ export const ProductVariantSection = ({
 
   return (
     <Container className="divide-y p-0">
+      {isError && (
+        <div className="px-6 py-4">
+          <Alert variant="warning">
+            <div className="flex flex-col gap-2">
+              <p className="font-semibold">Backend Medusa non disponible</p>
+              <p className="text-sm">
+                Impossible de charger les données. Le backend Medusa n&apos;est
+                pas configuré ou accessible.
+              </p>
+            </div>
+          </Alert>
+        </div>
+      )}
       <DataTable
         data={variants}
         columns={columns}
@@ -187,46 +200,6 @@ const useColumns = (product: HttpTypes.AdminProduct) => {
                 </Badge>
               </Tooltip>
             </div>
-
-
-        {isError && (
-
-
-          <div className="px-6 py-4">
-
-
-            <Alert variant="warning">
-
-
-              <div className="flex flex-col gap-2">
-
-
-                <p className="font-semibold">Backend Medusa non disponible</p>
-
-
-                <p className="text-sm">
-
-
-                  Impossible de charger les données. Le backend Medusa n&apos;est
-
-
-                  pas configuré ou accessible.
-
-
-                </p>
-
-
-              </div>
-
-
-            </Alert>
-
-
-          </div>
-
-
-        )}
-
           )
         },
       })
