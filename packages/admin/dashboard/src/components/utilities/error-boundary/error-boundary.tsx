@@ -50,7 +50,7 @@ export const ErrorBoundary = () => {
   if (isNetworkError) {
     title = "Erreur de connexion"
     message =
-      "Impossible de se connecter au serveur. Le backend Medusa n'est peut-être pas configuré ou accessible."
+      "Impossible de se connecter au backend Medusa. Vérifiez que le backend est démarré et accessible."
   } else {
     // Utiliser des messages par défaut si les traductions échouent
     try {
@@ -98,9 +98,9 @@ export const ErrorBoundary = () => {
             {isNetworkError && (
               <Alert variant="warning" className="mt-4">
                 <Text size="small" className="text-center">
-                  L&apos;interface d&apos;administration nécessite un backend
-                  Medusa configuré pour fonctionner complètement. Vous pouvez
-                  toujours utiliser l&apos;authentification personnalisée.
+                  Le backend Medusa doit être démarré et accessible pour que
+                  l&apos;interface fonctionne. Vérifiez la configuration et
+                  l&apos;URL du backend.
                 </Text>
               </Alert>
             )}

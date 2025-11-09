@@ -24,8 +24,7 @@ export const queryClient = new QueryClient({
         // Retry une fois pour les autres erreurs
         return failureCount < 1
       },
-      // CRITIQUE: Ne JAMAIS throw les erreurs, toujours les retourner dans le query state
-      // Cela permet à l'interface de continuer à fonctionner même si le backend n'est pas disponible
+      // Les erreurs sont retournées dans le query state pour être gérées par les composants
       throwOnError: false,
       // Retourner des données vides par défaut en cas d'erreur
       placeholderData: (previousData) => previousData ?? [],
