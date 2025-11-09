@@ -21,8 +21,7 @@ services:
         value: default
       - key: PORT
         value: "9000"
-      # CORS configuré pour accepter toutes les origines
-      # Vous pourrez le modifier plus tard pour Cloudflare Pages
+      # CORS configuré pour accepter toutes les origines (Cloudflare Pages inclus)
       - key: ADMIN_CORS
         value: "*"
       - key: STORE_CORS
@@ -36,4 +35,3 @@ databases:
     plan: starter
     databaseName: medusa_db
     user: medusa_user
-
